@@ -1,94 +1,97 @@
-import { DottedSurface } from "@/components/ui/dotted-surface";
 import { DottedSurfaceInverted } from "@/components/ui/dotted-surface-inverted";
 import { Header } from "@/components/header";
+import { HeroSection } from "@/components/hero-section";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { Reveal } from "@/components/reveal";
 import { ServicesSection } from "@/components/services-section";
 import { WorkSection } from "@/components/work-section";
 import { ContactForm } from "@/components/contact-form";
-import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
     <div className="flex flex-col">
+      <SmoothScroll />
       <Header />
 
       {/* Hero */}
-      <section className="relative flex h-screen items-center justify-center overflow-hidden">
-        <DottedSurface className="size-full" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div
-            aria-hidden="true"
-            className={cn(
-              "pointer-events-none absolute -top-10 left-1/2 size-full -translate-x-1/2 rounded-full",
-              "bg-[radial-gradient(ellipse_at_center,--theme(--color-foreground/.1),transparent_50%)]",
-              "blur-[30px]"
-            )}
-          />
-          <div className="flex flex-col items-center gap-4">
-            <h1 className="text-6xl font-bold text-white tracking-tight">
-              UnderTheRadar
-              <sup className="text-xs align-super ml-0.5 opacity-60">™</sup>
-            </h1>
-            <p className="text-sm tracking-[0.3em] uppercase text-white/50">
-              Post Production&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;Youtube Agency
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Services */}
       <ServicesSection />
 
-      {/* Work — Zoom Parallax */}
+      {/* Work */}
       <WorkSection />
 
       {/* About */}
-      <section id="about" className="relative z-10 bg-black py-24 scroll-mt-20">
+      <section id="about" className="relative z-10 bg-black py-32 scroll-mt-20 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-            <Reveal>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">
-                About us
-              </p>
-              <h2 className="text-4xl font-bold text-white mb-6">
-                We don&apos;t just edit.
-                <span className="text-white/20"> We obsess.</span>
-              </h2>
-              <p className="text-base leading-relaxed text-white/40 mb-4">
-                We&apos;re a tight crew of editors, colorists, and strategists who
-                live and breathe content. We know what works because we&apos;ve tested
-                everything that doesn&apos;t.
-              </p>
-              <p className="text-base leading-relaxed text-white/40">
-                Every frame, every cut, every thumbnail — crafted with intention.
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-6">
+              About us
+            </p>
+            <h2 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 max-w-3xl">
+              We don&apos;t just edit.
+              <br />
+              <span className="text-white/20">We obsess.</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent my-16" />
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+            <Reveal delay={0.15}>
+              <p className="text-lg leading-relaxed text-white/50">
+                We&apos;re a tight crew of editors, colorists, motion designers, and
+                strategists who eat, sleep, and breathe content. Born from late-night
+                editing sessions and a shared belief that every second of footage
+                deserves respect.
               </p>
             </Reveal>
 
-            <Reveal delay={0.15}>
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { number: '50+', label: 'Projects' },
-                  { number: '10M+', label: 'Views' },
-                  { number: '3x', label: 'Avg growth' },
-                  { number: '24h', label: 'Turnaround' },
-                ].map((stat) => (
-                  <div key={stat.label} className="rounded-xl border border-white/5 bg-white/[0.02] p-5">
-                    <p className="text-2xl font-bold text-white mb-1">{stat.number}</p>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
+            <Reveal delay={0.25}>
+              <p className="text-lg leading-relaxed text-white/50">
+                We&apos;ve helped creators go from zero to millions — not with hacks,
+                but with craft. Every cut is intentional. Every thumbnail is tested.
+                Every strategy is backed by data, not guesswork.
+              </p>
             </Reveal>
           </div>
+
+          <Reveal delay={0.3}>
+            <div className="h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent my-16" />
+          </Reveal>
+
+          <Reveal delay={0.35}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { number: '01', title: 'Craft over speed', desc: 'We take the time to get it right — no shortcuts, no templates.' },
+                { number: '02', title: 'Data meets taste', desc: 'We study what works, then make it look like nothing else.' },
+                { number: '03', title: 'Your voice, amplified', desc: 'We don\'t impose a style — we find yours and turn it up.' },
+                { number: '04', title: 'Always iterating', desc: 'Every project teaches us something. We never stop refining.' },
+              ].map((value) => (
+                <div key={value.number} className="group">
+                  <p className="text-3xl font-bold text-white/10 mb-4 group-hover:text-white/25 transition-colors duration-500">
+                    {value.number}
+                  </p>
+                  <h3 className="text-sm font-semibold text-white mb-2">
+                    {value.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-white/30">
+                    {value.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Contact */}
       <section id="contact" className="relative z-10 scroll-mt-20 min-h-screen overflow-hidden">
-        {/* Inverted dotted surface from ceiling */}
         <DottedSurfaceInverted className="size-full" />
 
-        {/* Content over the dots */}
         <div className="relative z-10 py-32">
           <div className="mx-auto max-w-4xl px-6">
             <Reveal>
