@@ -1,11 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
+
+// Global ref so other components can stop/start Lenis
+let lenisInstance: Lenis | null = null;
+
+export function stopScroll() {
+  lenisInstance?.stop();
+  document.body.style.overflow = 'hidden';
+  document.documentElement.style.overflow = 'hidden';
+}
+
+export function startScroll() {
+  lenisInstance?.start();
+  document.body.style.overflow = '';
+  document.documentElement.style.overflow = '';
+}
 
 export function SmoothScroll() {
   useEffect(() => {
-    // Disable on touch devices — causes issues with taps/clicks
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
 
@@ -15,6 +29,8 @@ export function SmoothScroll() {
       smoothWheel: true,
     });
 
+    lenisInstance = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -23,6 +39,7 @@ export function SmoothScroll() {
     requestAnimationFrame(raf);
 
     return () => {
+      lenisInstance = null;
       lenis.destroy();
     };
   }, []);

@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import VideoPlayer from '@/components/ui/video-player';
 import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal';
 import TiltedCard from '@/components/TiltedCard';
+import { stopScroll, startScroll } from '@/components/smooth-scroll';
 
 interface Clip {
   id: string;
@@ -63,6 +64,19 @@ export function WorkSection() {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
+  // Lock ALL scroll when video is open
+  useEffect(() => {
+    if (playingVideo) {
+      stopScroll();
+      const header = document.querySelector('header');
+      if (header) (header as HTMLElement).style.pointerEvents = 'none';
+      return () => {
+        startScroll();
+        if (header) (header as HTMLElement).style.pointerEvents = '';
+      };
+    }
+  }, [playingVideo]);
+
   return (
     <section id="work" className="relative z-10 bg-black py-32 scroll-mt-20">
       <div className="mx-auto max-w-6xl px-6">
@@ -83,11 +97,10 @@ export function WorkSection() {
             return (
               <StaggerItem key={clip.id}>
                 <div
-                  className="cursor-pointer transition-all duration-500"
+                  className="relative cursor-pointer transition-all duration-500"
                   style={{
                     filter: isHovered ? 'grayscale(0) brightness(1)' : isDimmed ? 'grayscale(1) brightness(0.4)' : 'grayscale(1) brightness(0.7)',
                   }}
-                  onClick={() => setPlayingVideo(clip.videoUrl)}
                   onMouseEnter={() => setHoveredId(clip.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
@@ -115,6 +128,11 @@ export function WorkSection() {
                       </div>
                     ) as any}
                   />
+                  {/* Invisible click layer on top */}
+                  <div
+                    className="absolute inset-0 z-10"
+                    onClick={() => setPlayingVideo(clip.videoUrl)}
+                  />
                 </div>
               </StaggerItem>
             );
@@ -126,7 +144,8 @@ export function WorkSection() {
       <AnimatePresence>
         {playingVideo && (
           <motion.div
-            className="fixed inset-0 z-[200] flex items-center justify-center p-6 cursor-pointer"
+            className="fixed inset-0 flex items-center justify-center p-6 cursor-pointer"
+            style={{ zIndex: 9999 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
