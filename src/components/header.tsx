@@ -183,7 +183,7 @@ export function Header() {
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white/70 transition-colors hover:text-white hover:border-white/20"
         >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          {mobileOpen ? <X size={18} className="pointer-events-none" /> : <Menu size={18} className="pointer-events-none" />}
         </button>
       </div>
 
@@ -218,7 +218,7 @@ export function Header() {
                         : 'text-white/40 hover:text-white/70',
                     )}
                   >
-                    <Icon size={16} className={isActive ? 'text-white/60' : 'text-white/25'} />
+                    <Icon size={16} className={cn('pointer-events-none', isActive ? 'text-white/60' : 'text-white/25')} />
                     <span className="text-sm uppercase tracking-[0.12em]">
                       {link.label}
                     </span>
