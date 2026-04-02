@@ -42,12 +42,12 @@ export function HeroSection() {
             'blur-[30px]',
           )}
         />
-        <h1 className="text-6xl font-bold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight text-center px-4">
           UnderTheRadar
-          <sup className="text-xs align-super ml-0.5 opacity-60">™</sup>
+          <sup className="text-[8px] sm:text-xs align-super ml-0.5 opacity-60">™</sup>
         </h1>
-        <p className="text-sm tracking-[0.3em] uppercase text-white/50">
-          Post Production&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;Youtube Agency
+        <p className="text-[10px] sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase text-white/50 text-center">
+          Post Production&nbsp;&nbsp;/&nbsp;&nbsp;Youtube Agency
         </p>
       </motion.div>
     </section>

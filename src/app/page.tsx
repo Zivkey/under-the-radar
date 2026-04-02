@@ -29,7 +29,7 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-6">
               About us
             </p>
-            <h2 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 max-w-3xl">
+            <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 max-w-3xl">
               We don&apos;t just edit.
               <br />
               <span className="text-white/20">We obsess.</span>
@@ -37,10 +37,10 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent my-16" />
+            <div className="h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent my-10 md:my-16" />
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24">
             <Reveal delay={0.15}>
               <p className="text-lg leading-relaxed text-white/50">
                 We&apos;re a tight crew of editors, colorists, motion designers, and
@@ -95,7 +95,7 @@ export default function Home() {
         <div className="relative z-10 py-32">
           <div className="mx-auto max-w-4xl px-6">
             <Reveal>
-              <div className="rounded-2xl border border-white/10 bg-black/70 backdrop-blur-3xl p-10 md:p-14">
+              <div className="rounded-2xl border border-white/10 bg-black/70 backdrop-blur-3xl p-6 sm:p-10 md:p-14">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">

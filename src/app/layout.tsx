@@ -9,8 +9,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "undertheradar",
-  description: "undertheradar",
+  title: "UnderTheRadar™ — Post Production & Youtube Agency",
+  description: "We craft stories that keep viewers watching. Post production, channel strategy, and full YouTube management.",
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({

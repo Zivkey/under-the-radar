@@ -70,7 +70,7 @@ export function WorkSection() {
           <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">
             Selected work
           </p>
-          <h2 className="text-4xl font-semibold text-white mb-16 max-w-xl">
+          <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-10 sm:mb-16 max-w-xl">
             Projects that speak for themselves.
           </h2>
         </Reveal>

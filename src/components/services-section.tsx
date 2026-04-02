@@ -31,11 +31,11 @@ export function ServicesSection() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-auto">
             {/* Large — Post Production */}
             <StaggerItem className="md:col-span-2 md:row-span-2">
-              <MagicCard className="h-full !rounded-2xl !border-white/5 !bg-white/[0.02] !p-10 !aspect-auto !min-h-0">
+              <MagicCard className="h-full !rounded-2xl !border-white/5 !bg-white/[0.02] !p-6 sm:!p-10 !aspect-auto !min-h-0">
                 <div className="flex flex-col h-full">
                   <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                  <Scissors className="mb-6 h-8 w-8 text-white/50" />
-                  <h3 className="text-2xl font-semibold text-white mb-4">
+                  <Scissors className="mb-4 sm:mb-6 h-6 w-6 sm:h-8 sm:w-8 text-white/50" />
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white mb-3 sm:mb-4">
                     Post Production
                   </h3>
                   <p className="text-sm leading-relaxed text-white/40 mb-8 max-w-md">
