@@ -30,7 +30,7 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 			10000,
 		);
 		// Flipped — camera looks UP from below, closer for more curve
-		camera.position.set(0, -600, 1000);
+		camera.position.set(0, -300, 900);
 		camera.lookAt(0, 0, 0);
 
 		const renderer = new THREE.WebGLRenderer({
@@ -62,13 +62,14 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 
 		const material = new THREE.PointsMaterial({
 			size: 6,
-			color: 0x555555,
+			color: 0x888888,
 			transparent: true,
 			opacity: 0.6,
 			sizeAttenuation: true,
 		});
 
 		const points = new THREE.Points(geometry, material);
+		points.rotation.x = -0.5;
 		scene.add(points);
 
 		let count = 0;
@@ -91,8 +92,8 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 				for (let iy = 0; iy < AMOUNTY; iy++) {
 					const index = i * 3;
 					posArray[index + 1] =
-						Math.sin((ix + count) * 0.3) * 80 +
-						Math.sin((iy + count) * 0.5) * 80;
+						Math.sin((ix + count) * 0.3) * 100 +
+						Math.sin((iy + count) * 0.5) * 100;
 					i++;
 				}
 			}

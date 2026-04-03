@@ -69,7 +69,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 		// Create material - white dots on dark bg
 		const material = new THREE.PointsMaterial({
 			size: 6,
-			color: 0x555555,
+			color: 0x888888,
 			transparent: true,
 			opacity: 0.6,
 			sizeAttenuation: true,
@@ -100,8 +100,8 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 				for (let iy = 0; iy < AMOUNTY; iy++) {
 					const index = i * 3;
 					posArray[index + 1] =
-						Math.sin((ix + count) * 0.3) * 50 +
-						Math.sin((iy + count) * 0.5) * 50;
+						Math.sin((ix + count) * 0.3) * 75 +
+						Math.sin((iy + count) * 0.5) * 75;
 					i++;
 				}
 			}
