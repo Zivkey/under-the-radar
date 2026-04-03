@@ -81,10 +81,16 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
 		let count = 0;
 		let animationId: number = 0;
+		let isVisible = true;
+		let lastFrameTime = 0;
+		const FRAME_INTERVAL = 1000 / 30; // 30fps
 
-		// Animation function
-		const animate = () => {
+		const animate = (time: number) => {
 			animationId = requestAnimationFrame(animate);
+
+			if (!isVisible) return;
+			if (time - lastFrameTime < FRAME_INTERVAL) return;
+			lastFrameTime = time;
 
 			const positionAttribute = geometry.attributes.position;
 			const posArray = positionAttribute.array as Float32Array;
@@ -93,12 +99,9 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 			for (let ix = 0; ix < AMOUNTX; ix++) {
 				for (let iy = 0; iy < AMOUNTY; iy++) {
 					const index = i * 3;
-
-					// Animate Y position with sine waves
 					posArray[index + 1] =
 						Math.sin((ix + count) * 0.3) * 50 +
 						Math.sin((iy + count) * 0.5) * 50;
-
 					i++;
 				}
 			}
@@ -107,6 +110,12 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 			renderer.render(scene, camera);
 			count += 0.02;
 		};
+
+		// Pause when off-screen
+		const visObserver = new IntersectionObserver(([entry]) => {
+			isVisible = entry.isIntersecting;
+		}, { threshold: 0 });
+		if (containerRef.current) visObserver.observe(containerRef.current);
 
 		// Handle window resize
 		const handleResize = () => {
@@ -118,7 +127,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 		window.addEventListener('resize', handleResize);
 
 		// Start animation
-		animate();
+		animate(0);
 
 		// Store references
 		sceneRef.current = {
@@ -132,6 +141,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
 		// Cleanup function
 		return () => {
+			visObserver.disconnect();
 			window.removeEventListener('resize', handleResize);
 
 			if (sceneRef.current) {

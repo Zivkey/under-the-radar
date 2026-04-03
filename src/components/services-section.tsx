@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { Scissors, TrendingUp, Layers, Image, Clock, Eye } from 'lucide-react';
 import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal';
 import { MagicCard, MagicSpotlight, MagicGrid } from '@/components/magic-bento-wrapper';
-import '@/components/MagicBento.css';
+import '@/components/magic-bento.css';
 
 export function ServicesSection() {
   const gridRef = useRef<HTMLDivElement>(null);

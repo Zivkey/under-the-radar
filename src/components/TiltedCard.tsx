@@ -1,12 +1,30 @@
-import { useRef, useState } from 'react';
+'use client';
+
+import { useRef, useState, type ReactNode, type MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 import './TiltedCard.css';
 
 const springValues = {
   damping: 30,
   stiffness: 100,
-  mass: 2
+  mass: 2,
 };
+
+interface TiltedCardProps {
+  imageSrc: string;
+  altText?: string;
+  captionText?: string;
+  containerHeight?: string;
+  containerWidth?: string;
+  imageHeight?: string;
+  imageWidth?: string;
+  scaleOnHover?: number;
+  rotateAmplitude?: number;
+  showMobileWarning?: boolean;
+  showTooltip?: boolean;
+  overlayContent?: ReactNode;
+  displayOverlayContent?: boolean;
+}
 
 export default function TiltedCard({
   imageSrc,
@@ -21,12 +39,12 @@ export default function TiltedCard({
   showMobileWarning = true,
   showTooltip = true,
   overlayContent = null,
-  displayOverlayContent = false
-}) {
-  const ref = useRef(null);
+  displayOverlayContent = false,
+}: TiltedCardProps) {
+  const ref = useRef<HTMLElement>(null);
 
-  const x = useMotionValue();
-  const y = useMotionValue();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
   const rotateX = useSpring(useMotionValue(0), springValues);
   const rotateY = useSpring(useMotionValue(0), springValues);
   const scale = useSpring(1, springValues);
@@ -34,12 +52,12 @@ export default function TiltedCard({
   const rotateFigcaption = useSpring(0, {
     stiffness: 350,
     damping: 30,
-    mass: 1
+    mass: 1,
   });
 
   const [lastY, setLastY] = useState(0);
 
-  function handleMouse(e) {
+  function handleMouse(e: MouseEvent<HTMLElement>) {
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
@@ -79,7 +97,7 @@ export default function TiltedCard({
       className="tilted-card-figure"
       style={{
         height: containerHeight,
-        width: containerWidth
+        width: containerWidth,
       }}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
@@ -96,16 +114,17 @@ export default function TiltedCard({
           height: imageHeight,
           rotateX,
           rotateY,
-          scale
+          scale,
         }}
       >
         <motion.img
           src={imageSrc}
           alt={altText}
+          loading="lazy"
           className="tilted-card-img"
           style={{
             width: imageWidth,
-            height: imageHeight
+            height: imageHeight,
           }}
         />
 
@@ -121,7 +140,7 @@ export default function TiltedCard({
             x,
             y,
             opacity,
-            rotate: rotateFigcaption
+            rotate: rotateFigcaption,
           }}
         >
           {captionText}

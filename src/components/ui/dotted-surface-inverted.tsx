@@ -73,9 +73,15 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 
 		let count = 0;
 		let animationId: number = 0;
+		let isVisible = true;
+		let lastFrameTime = 0;
+		const FRAME_INTERVAL = 1000 / 30;
 
-		const animate = () => {
+		const animate = (time: number) => {
 			animationId = requestAnimationFrame(animate);
+			if (!isVisible) return;
+			if (time - lastFrameTime < FRAME_INTERVAL) return;
+			lastFrameTime = time;
 
 			const positionAttribute = geometry.attributes.position;
 			const posArray = positionAttribute.array as Float32Array;
@@ -96,6 +102,11 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 			count += 0.02;
 		};
 
+		const visObserver = new IntersectionObserver(([entry]) => {
+			isVisible = entry.isIntersecting;
+		}, { threshold: 0 });
+		if (containerRef.current) visObserver.observe(containerRef.current);
+
 		const handleResize = () => {
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
@@ -103,11 +114,12 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 		};
 
 		window.addEventListener('resize', handleResize);
-		animate();
+		animate(0);
 
 		sceneRef.current = { scene, camera, renderer, animationId };
 
 		return () => {
+			visObserver.disconnect();
 			window.removeEventListener('resize', handleResize);
 			if (sceneRef.current) {
 				cancelAnimationFrame(sceneRef.current.animationId);

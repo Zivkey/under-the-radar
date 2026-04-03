@@ -24,18 +24,23 @@ export function Header() {
   useEffect(() => {
     const sectionIds = navLinks.map((l) => l.href.replace('#', ''));
 
+    let rafId: number | null = null;
     const handleScroll = () => {
-      const offset = 150;
-      let newActive = 'home';
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        if (sectionIds[i] === 'home') continue;
-        const el = document.getElementById(sectionIds[i]);
-        if (el && el.getBoundingClientRect().top <= offset) {
-          newActive = sectionIds[i];
-          break;
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const offset = 150;
+        let newActive = 'home';
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+          if (sectionIds[i] === 'home') continue;
+          const el = document.getElementById(sectionIds[i]);
+          if (el && el.getBoundingClientRect().top <= offset) {
+            newActive = sectionIds[i];
+            break;
+          }
         }
-      }
-      setActiveSection(newActive);
+        setActiveSection(newActive);
+        rafId = null;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -181,6 +186,8 @@ export function Header() {
         {/* Hamburger button — mobile */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileOpen}
           className="md:hidden flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-white/70 transition-colors hover:text-white hover:border-white/20"
         >
           {mobileOpen ? <X size={18} className="pointer-events-none" /> : <Menu size={18} className="pointer-events-none" />}

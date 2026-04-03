@@ -126,7 +126,7 @@ export function WorkSection() {
                           {clip.title}
                         </h3>
                       </div>
-                    ) as any}
+                    )}
                   />
                   {/* Invisible click layer on top */}
                   <div

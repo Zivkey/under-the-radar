@@ -11,8 +11,18 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "UnderTheRadar™ — Post Production & Youtube Agency",
   description: "We craft stories that keep viewers watching. Post production, channel strategy, and full YouTube management.",
-  icons: {
-    icon: '/icon.svg',
+  icons: { icon: '/icon.svg' },
+  openGraph: {
+    title: "UnderTheRadar™",
+    description: "Professional post production and YouTube channel management.",
+    type: "website",
+    locale: "en_US",
+    siteName: "UnderTheRadar",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UnderTheRadar™",
+    description: "Post Production & YouTube Agency",
   },
 };
 

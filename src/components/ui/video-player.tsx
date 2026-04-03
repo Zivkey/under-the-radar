@@ -52,6 +52,7 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ src, onClose }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [volume, setVolume] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
@@ -145,9 +146,25 @@ const VideoPlayer = ({ src, onClose }: VideoPlayerProps) => {
         ref={videoRef}
         className="w-full aspect-video"
         onTimeUpdate={handleTimeUpdate}
+        onLoadStart={() => setIsLoading(true)}
+        onCanPlay={() => setIsLoading(false)}
         src={src}
         onClick={togglePlay}
       />
+
+      {/* Loading spinner */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-black/60"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="h-10 w-10 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Big play button overlay when paused */}
       <AnimatePresence>
