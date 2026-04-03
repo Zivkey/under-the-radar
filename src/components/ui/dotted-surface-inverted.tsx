@@ -69,7 +69,7 @@ export function DottedSurfaceInverted({ className, ...props }: DottedSurfaceInve
 		});
 
 		const points = new THREE.Points(geometry, material);
-		points.rotation.x = -0.5;
+		points.rotation.x = -0.25;
 		scene.add(points);
 
 		let count = 0;
